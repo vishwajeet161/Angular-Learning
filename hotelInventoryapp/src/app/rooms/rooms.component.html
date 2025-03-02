@@ -1,0 +1,37 @@
+<h1>Welcome to {{hotelName}}!!</h1>
+
+<!--We can use all the html attributes like innerText, hidden, etc. in Angular
+But if we use hidden attribute, it will hide the element but it will still be present in the DOM (which can cause performance issues if application is heavy)
+So, it is better to use *ngIf directive to remove the element from the DOM-->
+<div [hidden]="hideRooms">
+    Number of Rooms:
+    <div [innerText]="numberOfRooms"></div>
+</div>
+
+
+<!-- {{ rooms?.availableRooms ?? 'No Rooms Available' }} -->
+<div *ngIf="rooms.availableRooms>0">
+    Rooms List
+    <table>
+        <tr>
+            <th>Index</th>
+            <th>Even/Odd</th>
+            <th>Rooom Number</th>
+            <th>Room Type</th>
+            <th>Room Price</th>
+            <th>Room Amenities</th>
+            <th>Checkin Time</th>
+        </tr>
+        <tr *ngFor="let rooms of roomList; let e=even let o=odd let i=index">
+            <td>{{i}}</td>
+            <td>{{e? "Even":"Odd"}}</td>
+            <td>{{rooms.roomNumber}}</td>
+            <td>{{rooms.roomType}}</td>
+            <td>{{rooms.price}}</td>
+            <td>{{rooms.amenities}}</td>
+            <td>{{rooms.checkinTime}}</td>
+        </tr>
+    </table>
+</div>
+
+<button (click)="toggle()">Toggle</button>
