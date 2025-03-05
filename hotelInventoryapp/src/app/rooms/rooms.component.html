@@ -5,11 +5,13 @@ But if we use hidden attribute, it will hide the element but it will still be pr
 So, it is better to use *ngIf directive to remove the element from the DOM-->
 <div [hidden]="hideRooms">
     Number of Rooms:
-    <div [innerText]="numberOfRooms"></div>
+    <div [ngStyle]="{'color': rooms.availableRooms ? 'green': 'red'}"
+         [innerText]="numberOfRooms"></div>
 </div>
 
 
 <!-- {{ rooms?.availableRooms ?? 'No Rooms Available' }} -->
+  <!-- {{roomList | json}} -->
 <div *ngIf="rooms.availableRooms>0">
     Rooms List
     <table>
@@ -22,14 +24,16 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
             <th>Room Amenities</th>
             <th>Checkin Time</th>
         </tr>
-        <tr *ngFor="let rooms of roomList; let e=even let o=odd let i=index">
+        <tr [ngClass]="e ? 'even': 'odd'" 
+            *ngFor="let rooms of roomList; let e=even let o=odd let i=index"
+        >
             <td>{{i}}</td>
             <td>{{e? "Even":"Odd"}}</td>
             <td>{{rooms.roomNumber}}</td>
             <td>{{rooms.roomType}}</td>
-            <td>{{rooms.price}}</td>
-            <td>{{rooms.amenities}}</td>
-            <td>{{rooms.checkinTime}}</td>
+            <td>{{rooms.price | currency: 'INR'}}</td>
+            <td>{{rooms.amenities | titlecase}}</td>
+            <td>{{rooms.checkinTime | date  : 'dd/MMM/yyyy'}}</td>
         </tr>
     </table>
 </div>
