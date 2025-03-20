@@ -1,0 +1,24 @@
+Ways of component Communication
+
+why?
+The scenario where two or more components need to interact is known as component communication.
+There are multiple ways to achieve the component communication.
+
+there are 3 ways that we generally use :-
+Using @Input and @Output
+Using @ViewChild and @ContentChild
+Using Services
+
+@Input :-
+Input is a decorator which is used to pass the data from parent component to child component
+we can also call parent component to child component relationship as smart component and dumb component.
+Parent component is a smart component which knows from where to get data and child component is a dumb component which does not known anything, it just need to know what to render.
+
+@Output :-
+
+  @Output() selectedRoom = new  EventEmitter<RoomList>();
+
+Output is a decorator which is used to pass the data from child component to parent component
+EventEmitter is a class which is used to emit the event
+selectedRoom is the event which will be emitted to the parent component
+RoomList is the type of data which will be emitted

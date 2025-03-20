@@ -7,3 +7,15 @@
 
 /* Importing Datepicker SCSS file. */
 // @use "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+.even {
+    background-color: steelblue;
+    color: white;
+}
+
+.odd {
+    background-color: tomato;
+    color: white;
+}
+.table{
+    border: 1px solid wheat;
+}
