@@ -1,4 +1,5 @@
-<h1>Welcome to {{hotelName}}!!</h1>
+<!-- <h1>Welcome to {{hotelName}}!!</h1> -->
+ <app-header></app-header>
 
 <!--We can use all the html attributes like innerText, hidden, etc. in Angular
 But if we use hidden attribute, it will hide the element but it will still be present in the DOM (which can cause performance issues if application is heavy)
@@ -23,7 +24,7 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
         When the selectedRoom event is emitted, the selectRoom method is called.
 
     -->
-    <app-rooms-list [rooms]="roomList" (selectedRoom)="select1Room($event)"></app-rooms-list> 
+    <app-rooms-list [rooms]="roomList" (selectedRoom)="select1Room($event)" [title]="title"></app-rooms-list> 
     
 </div>
 <!-- {{ rooms?.availableRooms ?? 'No Rooms Available' }} -->

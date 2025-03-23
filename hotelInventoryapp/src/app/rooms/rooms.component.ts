@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
 import { Room, RoomList } from './rooms';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-rooms',
@@ -7,11 +8,11 @@ import { Room, RoomList } from './rooms';
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss'
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
 
   hotelName: string = 'Hotel India';
   numberOfRooms: number = 10;
-
+  title: string = 'Room List';
   hideRooms: boolean = true;
 
   selectedRoom!: RoomList;
@@ -27,6 +28,17 @@ export class RoomsComponent implements OnInit {
   //Constructor should be used only for dependency injection(some services injection) and not for logic
   //Constructor should have any blocking code, it should be on ngOnInit
   constructor() { }
+  
+  //ViewChild is a decorator which is used to get the reference of the child component
+  //HeaderComponent is the child component which we are getting the reference
+  //headerComponent is the variable which will hold the reference of the child component
+  @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+  // ngDoCheck is a lifecycle hook called by Angular to indicate that Angular is done checking the component
+  // It should be used for logic
+  // It works in a way that after the checking of the component, it will be called
+  ngDoCheck(): void {
+    console.log("On Cahnges is called");
+  }
 
   //ngOnInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component
   //It should be used for logic
@@ -36,6 +48,7 @@ export class RoomsComponent implements OnInit {
   this should now go to constructor or any other lifecycle hook
   */
   ngOnInit() {
+    // console.log(this.headerComponent);
     this.roomList = [{
       roomNumber: 101,
       roomType: 'Deluxe Room',
@@ -70,8 +83,29 @@ export class RoomsComponent implements OnInit {
     ]
   }
 
+ 
+
+  //ngAfterViewInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component view
+  //It should be used for logic
+  //It works in a way that after the initialization of the component view, it will be called
+  //It is called after the ngAfterContentInit
+  ngAfterViewInit(): void {
+    // console.log(this.headerComponent);
+    this.headerComponent.title = 'Rooms View';
+    
+  }
+
+  //ngAfterViewChecked is a lifecycle hook called by Angular to indicate that Angular is done checking the component view
+  //It should be used for logic
+  //It works in a way that after the checking of the component view, it will be called
+  //It is called after the ngAfterViewInit
+  ngAfterViewChecked(): void {
+    
+  }
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = "Rooms List";
+    
   }
 
   //selectRoom is a method which will be called when we click on the room
@@ -91,7 +125,7 @@ export class RoomsComponent implements OnInit {
       checkoutTime: new Date('2021-09-10'), 
       rating: 4.811,   
    };
-   // here are mutating the existing array which means we are changing the existing array, which is not a good practice
+  // here are mutating the existing array which means we are changing the existing array, which is not a good practice
   //  this.roomList.push(newRoom);
   // here we are returning a new instance of roomList array with the new room added to it, we are not mutating the existing array.
   this.roomList = [...this.roomList, newRoom];
