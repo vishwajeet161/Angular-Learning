@@ -9,8 +9,13 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
          [innerText]="numberOfRooms"></div>
 </div>
 
+<!-- Whenever we do some action view needs to be updated, it happens via change detection and here it is internally handled by angular and it runs for entire components-->
 <div *ngIf="selectedRoom">
     {{selectedRoom | json}}
+</div>
+
+<div>
+    <button (click)="addRoom()">Add Room</button>
 </div>
 <div *ngIf="rooms.availableRooms>0">
     <!--
@@ -18,7 +23,7 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
         When the selectedRoom event is emitted, the selectRoom method is called.
 
     -->
-    <app-rooms-list [room]="roomList" (selectedRoom)="select1Room($event)"></app-rooms-list> 
+    <app-rooms-list [rooms]="roomList" (selectedRoom)="select1Room($event)"></app-rooms-list> 
     
 </div>
 <!-- {{ rooms?.availableRooms ?? 'No Rooms Available' }} -->

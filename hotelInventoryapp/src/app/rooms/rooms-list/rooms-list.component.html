@@ -11,7 +11,7 @@ room List
         <th>Rating</th>
         <th>Select Room</th>
     </tr>
-    <tr [ngClass]="e ? 'even': 'odd'" *ngFor="let room of room; let e=even let o=odd let i=index">
+    <tr [ngClass]="e ? 'even': 'odd'" *ngFor="let room of rooms; let e=even let o=odd let i=index">
         <td>{{i}}</td>
         <td>{{e? "Even":"Odd"}}</td>
         <td>{{room.roomNumber}}</td>

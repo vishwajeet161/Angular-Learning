@@ -80,4 +80,21 @@ export class RoomsComponent implements OnInit {
     this.selectedRoom = room;
   }
 
+  addRoom() {
+    const newRoom: RoomList = {
+      roomNumber: 104,
+      roomType: 'Suite Room',
+      amenities: 'AC, TV, Wifi, Breakfast, Lunch, Dinner, Bar',
+      price: 15000,
+      photos: 'assets/suite.jpg',
+      checkinTime: new Date('2021-09-01'),
+      checkoutTime: new Date('2021-09-10'), 
+      rating: 4.811,   
+   };
+   // here are mutating the existing array which means we are changing the existing array, which is not a good practice
+  //  this.roomList.push(newRoom);
+  // here we are returning a new instance of roomList array with the new room added to it, we are not mutating the existing array.
+  this.roomList = [...this.roomList, newRoom];
+ }
+
 }

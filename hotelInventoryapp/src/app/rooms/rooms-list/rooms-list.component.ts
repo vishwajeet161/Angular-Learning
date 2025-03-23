@@ -1,17 +1,21 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RoomList } from '../rooms';
 
 @Component({
   selector: 'app-rooms-list',
   standalone: false,
   templateUrl: './rooms-list.component.html',
-  styleUrl: './rooms-list.component.scss'
+  styleUrl: './rooms-list.component.scss',
+  //ChangeDetectionStrategy is a core concept in Angular which is used to improve the performance of the application
+  //OnPush is a strategy which is used to detect the changes only when the input property is changed from the parent component
+  //It will not detect the changes when the input property is changed from it's child component
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoomsListComponent implements OnInit{
   
   //we are making rooms as valid input property so that we can pass the data from parent component to child component
   //Input is a decorator which is used to pass the data from parent component to child component
-  @Input() room: RoomList[] = [];
+  @Input() rooms: RoomList[] = [];
 
   //Output is a decorator which is used to pass the data from child component to parent component
   //EventEmitter is a class which is used to emit the event
