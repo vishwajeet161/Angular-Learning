@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
 import { RoomList } from '../rooms';
 
 @Component({
@@ -11,7 +11,7 @@ import { RoomList } from '../rooms';
   //It will not detect the changes when the input property is changed from it's child component
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoomsListComponent implements OnInit, OnChanges{
+export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   
   //we are making rooms as valid input property so that we can pass the data from parent component to child component
   //Input is a decorator which is used to pass the data from parent component to child component
@@ -23,6 +23,7 @@ export class RoomsListComponent implements OnInit, OnChanges{
   //RoomList is the type of data which will be emitted
   @Output() selectedRoom = new  EventEmitter<RoomList>();
   constructor() { }
+ 
 
   //ngOnChanges is a lifecycle hook which is called by Angular when the input property is changed
   //It will take the changes as an argument which is of type SimpleChanges
@@ -44,5 +45,9 @@ export class RoomsListComponent implements OnInit, OnChanges{
   //It will emit the selected room to the parent component
   selectRoom(room: RoomList){
     this.selectedRoom.emit(room);
+  }
+
+  ngOnDestroy(): void{
+    console.log("Rooms List Component is destroyed");
   }
 }

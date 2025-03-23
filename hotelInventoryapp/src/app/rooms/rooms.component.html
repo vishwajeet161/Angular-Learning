@@ -20,7 +20,7 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
 <div>
     <button (click)="addRoom()">Add Room</button>
 </div>
-<div *ngIf="rooms.availableRooms>0">
+<div *ngIf="hideRooms">
     <!--
         sending the roomList to the rooms-list component and listening to the selectedRoom event. 
         When the selectedRoom event is emitted, the selectRoom method is called.
