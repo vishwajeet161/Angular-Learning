@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 
@@ -29,9 +29,18 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   //Constructor should have any blocking code, it should be on ngOnInit
   constructor() { }
   
+
+  //ViewChildren is a decorator which is used to get the reference of the child component
+  //HeaderComponent is the child component which we are getting the reference
+  //headerChildreenComponent is the variable which will hold the reference of the child component
+  //ViewChildren will access all the instances of the child component which are available on your template
+  @ViewChildren(HeaderComponent) headerChildreenComponent!: QueryList<HeaderComponent>;
+
+
   //ViewChild is a decorator which is used to get the reference of the child component
   //HeaderComponent is the child component which we are getting the reference
   //headerComponent is the variable which will hold the reference of the child component
+  //ViewChild will alwasy access first instance which is available on your template
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
   // ngDoCheck is a lifecycle hook called by Angular to indicate that Angular is done checking the component
   // It should be used for logic
@@ -92,6 +101,11 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   ngAfterViewInit(): void {
     // console.log(this.headerComponent);
     this.headerComponent.title = 'Rooms View';
+    this.headerChildreenComponent.last.title = 'Last Header';
+
+    // this.headerChildreenComponent.forEach((headerComponent) => {
+    //   headerComponent.title = 'Childreen Header';
+    // });
     
   }
 
