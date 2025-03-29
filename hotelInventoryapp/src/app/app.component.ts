@@ -18,15 +18,20 @@ export class AppComponent implements AfterViewInit {
   //ViewChild is a decorator which is used to get the reference of the child component
   //ViewContainerRef is a class which is used to get the reference of the child component
   //user is the variable which will hold the reference of the child component
-  @ViewChild('user', {read: ViewContainerRef}) vcr!: ViewContainerRef;
-  @ViewChild('name', {read: ElementRef}) name!: ElementRef;
+
+  // @ViewChild('user', {read: ViewContainerRef}) vcr!: ViewContainerRef; //Used to dynamic component creation
+
+  @ViewChild('name', {read: ElementRef}) name!: ElementRef; 
   ngAfterViewInit(): void {
     //createComponent is a method which is used to create the component dynamically
     //RoomsComponent is the component which we are creating dynamically
-    const componentRef = this.vcr.createComponent(RoomsComponent);
+
+    // const componentRef = this.vcr.createComponent(RoomsComponent);
+
     //We can pass the data to the child component using the instance property
     //numberOfRooms is the property of the child component
-    componentRef.instance.numberOfRooms = 20;
+
+    // componentRef.instance.numberOfRooms = 20;
 
     this.name.nativeElement.innerText = 'Hotel India';
   }

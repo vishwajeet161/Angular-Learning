@@ -22,3 +22,117 @@ Output is a decorator which is used to pass the data from child component to par
 EventEmitter is a class which is used to emit the event
 selectedRoom is the event which will be emitted to the parent component
 RoomList is the type of data which will be emitted
+
+
+
+About ChangeDetection in Angular:-
+
+Whenever we do some action or change in data in realtime, view needs to be updated automatically in realtime and in angular it happens by ChangeDetection.
+
+Change detection in Angular is a fundamental concept that helps Angular applications keep their user interfaces in sync with the application's data model. 
+Angular automatically detects changes to the application's data and updates the view accordingly.
+
+when we do some action on a perticular componenet then angular default change detection will scan for each and every component which is unnecessary.
+
+  
+	changeDetection: ChangeDetectionStrategy.OnPush
+  
+  @Component({
+  selector: 'app-rooms-list',
+  standalone: false,
+  templateUrl: './rooms-list.component.html',
+  styleUrl: './rooms-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+ChangeDetectionStrategy is a core concept in Angular which is used to improve the performance of the application
+OnPush is a strategy which is used to detect the changes only when the input property is changed from the parent component
+ It will not detect the changes when the input property is changed from it's child component
+ The componenet shouldnot be changing data internally.
+ 
+ whenever we do some changes in input we should return a new instance which is a good practice
+ eg:-    this.roomList = [...this.roomList, newRoom];
+ Here we are returning a new instance of roomList array with the new room added to it, we are not mutating the existing array.
+ 
+	this.roomList.push(newRoom);
+Here are mutating the existing array which means we are changing the existing array, which is not a good practice
+
+
+**LifeCycle Hook***
+
+--ngOnChanges (LifeCycle Hook)
+
+ngOnChanges life clycle hook can be applied on a componenet which has input property and we cannot apply it anywhere else.
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+	}
+	
+ngOnChanges is a lifecycle hook which is called by Angular when the input property is changed
+It will take the changes as an argument which is of type SimpleChanges
+SimpleChanges is an interface which is used to get the previous value and current value of the input property
+
+
+--ngDoCheck (LifeCycle Hook) // try to avoid using it as much as possible 
+  ngDoCheck is a lifecycle hook called by Angular to indicate that Angular is done checking the component
+  It should be used for logic
+  It works in a way that after the checking of the component, it will be called
+  It will detect any changes in the component unlike ngOnChanges(It detects changes for just input property)
+  
+--ngOndestroy
+	ngOndestroy is a lifecycle hook which is called by Angular when the component is destroyed
+	It should be used to clean up the resources which are used by the component
+	It should be used to unsubscribe the observables and remove the event listeners
+	It should be used to remove the child components which are created dynamically
+  ngOnDestroy(): void{
+    console.log("Rooms List Component is destroyed");
+  }
+  
+  
+  
+--Using ng-template we can dynamically render a component in any component and modify their properties accordinglty.
+  
+  .html code - 
+					<div>
+						<ng-template #user></ng-template>
+					</div>
+					
+	.ts code - 
+					@ViewChild('user', {read: ViewContainerRef}) vcr!: ViewContainerRef;
+					
+					ngAfterViewInit(): void {
+					//createComponent is a method which is used to create the component dynamically
+					//RoomsComponent is the component which we are creating dynamically
+
+					const componentRef = this.vcr.createComponent(RoomsComponent);
+
+					/We can pass the data to the child component using the instance property
+					//numberOfRooms is the property of the child component
+    
+					componentRef.instance.numberOfRooms = 20;
+
+					}
+
+-- Content Projection(ng-content)
+	Content projection is a pattern in which you insert, or project, the content you want to use inside another component.
+	Use of ng-content tag 
+		using this we can restrict lower level developers from positining of elements or componenets in a screen like with the help of <ng-content></ng-content> 
+		we can pre decide that header component will always come first and footer component will always come last.
+		
+
+
+**Dependency Injection(DI)**
+
+	Dependencies are services or objects needed by classes to perform some function.
+	It's a design pattern.
+	Angular has built-in Dependency Injection support.
+	
+	In angular dependency can be class inside a componenet or inside a service.
+	
+	
+	--DI providers -
+		Class based providers.
+		Value Providers.
+		Factory.
+		
+		
+		There are some of the code that we write can be reuseble and to reuse those we separate them in the form of services.
+		Services are those in which we write our businees logic.

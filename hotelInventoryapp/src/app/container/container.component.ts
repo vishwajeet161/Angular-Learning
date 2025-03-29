@@ -16,7 +16,7 @@ export class ContainerComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    this,this.employeeComponent.employeeName = 'Employee Name';
+    this.employeeComponent.employeeName = 'Employee Name';
    
   }
 

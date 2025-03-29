@@ -47,6 +47,10 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
     this.selectedRoom.emit(room);
   }
 
+  //ngOndestroy is a lifecycle hook which is called by Angular when the component is destroyed
+  //It should be used to clean up the resources which are used by the component
+  //It should be used to unsubscribe the observables and remove the event listeners
+  //It should be used to remove the child components which are created dynamically
   ngOnDestroy(): void{
     console.log("Rooms List Component is destroyed");
   }
