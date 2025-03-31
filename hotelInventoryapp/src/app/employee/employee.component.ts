@@ -21,7 +21,7 @@ export class EmployeeComponent {
   // when we are sure that the service is provided in the component and we don't want to go to the parent component to get the instance of the service
   // It is used to avoid the circular dependency
   constructor(@Self() private roomService: RoomsService) { 
-
+    console.log(roomService);
   }
   //@SkipSelf() is a decorator which is used to get the instance of the service
   // It will go to the parent component to get the instance of the service

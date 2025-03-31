@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,18 +19,20 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
     RoomsListComponent,
     HeaderComponent,
     ContainerComponent,
-    EmployeeComponent
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
+    provideHttpClient(withFetch()),
+    // provideHttpClient() is used to provide the http client to the application
   ],
   bootstrap: [AppComponent]
 })

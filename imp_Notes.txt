@@ -215,3 +215,47 @@ SimpleChanges is an interface which is used to get the previous value and curren
 			
 			Value Providers:-  Value providers in Angular allow you to provide a constant or predefined value as a dependency using the useValue property in the providers array. 
 										This is useful for injecting configuration settings, static data, or simple objects into components or services.
+										
+										
+										
+										
+										
+										
+										
+										
+										
+**Angular Http and Observables**
+	Agenda :-
+		1. Introduction
+		2. Setting Up HttpClient
+		3. Using HttpClient Service
+		4. RxJs, Observables and streams
+		5. http methods
+		6. Rxjs Operators
+		7. Http Interceptors
+		8. APP_INITIALIZERS
+		
+		
+		--Introduction :-
+			In enterprise apps, you need to interact with APIs.
+			HttpClient is Service provided by angular to interact with APIs.
+			HttpClient internally uses RxJs.
+			
+		--Setting Ip HttpClient:-
+			We need to import HttpClientModule. (now depricated)
+			Once module is imported we can inject HttpClient Service.
+			//HttpClientModule is no longer needed in newer Angular versions (starting from Angular 15) because HttpClient is now provided using the provideHttpClient() function.
+			
+		--Using HttpClient Service :-
+			  getRooms(){
+					// return this.roomList;
+					return this.http.get<RoomList[]>('/api/rooms')
+				}
+				
+		--RxJs, Observables and streams:-
+				Angular uses Rxjs internally.
+				RxJs is an library for writing Reactive Programming.
+				Observables are stream of data to which we can subscribe.
+				Angular leverages RxJS Observables to manage state and asynchronous data streams efficiently. 
+				When an observable (e.g., an HTTP request or a shared service data stream) emits new data, all subscribed components automatically receive updates, 
+				eliminating the need to manually call getData() again. This reactive approach ensures real-time data synchronization across the application.
