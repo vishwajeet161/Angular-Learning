@@ -1,12 +1,22 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../rooms';
+import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
+import { AppConfig } from '../../AppConfig/appconfig.interface';
 
+// This service is used to get the list of rooms from the server
+// It is a singleton service which means it will be created only once and will be used throughout the application
+// It is provided in the root module which means it will be available throughout the application
+// It is a good practice to provide the service in the root module so that it can be used throughout the application
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService  {
 
-  constructor() { }
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { 
+    console.log(config.apiEndpoint);
+    // This is used to get the api endpoint from the environment file
+    console.log("Service is created");
+  }
 
   roomList: RoomList[] = [{
     roomNumber: 101,

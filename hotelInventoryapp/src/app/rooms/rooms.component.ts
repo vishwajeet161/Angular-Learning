@@ -1,6 +1,7 @@
 import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
+import { RoomsService } from './services/rooms.service';
 
 @Component({
   selector: 'app-rooms',
@@ -27,7 +28,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   //Constructor should be used only for dependency injection(some services injection) and not for logic
   //Constructor should have any blocking code, it should be on ngOnInit
-  constructor() { }
+  constructor(private roomService: RoomsService) { }
   
 
   //ViewChildren is a decorator which is used to get the reference of the child component
@@ -58,6 +59,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   */
   ngOnInit() {
     // console.log(this.headerComponent);
+    this.roomList = this.roomService.getRooms();
    
   }
 

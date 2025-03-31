@@ -1,5 +1,7 @@
-import { Component, AfterViewInit, ViewChild, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ViewContainerRef, ElementRef, OnInit, Optional, Inject } from '@angular/core';
 import { RoomsComponent } from './rooms/rooms.component';
+import { LoggerService } from './logger.service';
+import { localStorageToken } from './localstorage.token';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +9,29 @@ import { RoomsComponent } from './rooms/rooms.component';
   standalone: false,
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   title = 'hotelInventoryapp';
 
-  constructor() { }
+
+  //@Optional() is a decorator which is used to make the dependency optional
+  //It will not throw an error if the dependency is not provided
+  //It will return null if the dependency is not provided
+  //It is used to avoid the circular dependency
+  //LoggerService is a service which is used to log the messages
+  constructor(@Optional() private logger: LoggerService,
+    @Inject(localStorageToken) private localStorage: Storage) {
+
+   }
+  //@Host() is a decorator which is used to get the instance of the service
 
 
+
+
+  ngOnInit(): void {
+    this.localStorage.setItem('name', 'Hotel India');
+    this.logger?.Log('AppComponent.ngOnInit()');
+    // this.name.nativeElement.innerText = 'Hotel India';
+  }
   /*Loading the RoomComponent Dynamically */
 
   //ViewChild is a decorator which is used to get the reference of the child component

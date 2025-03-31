@@ -136,3 +136,82 @@ SimpleChanges is an interface which is used to get the previous value and curren
 		
 		There are some of the code that we write can be reuseble and to reuse those we separate them in the form of services.
 		Services are those in which we write our businees logic.
+		To get  the data from apis we should use services.
+		We can do Component interaction using servies 
+				- Sharing data between multiple componenet or within app 
+		To use a service in a component we must register that servies into that component or at root level using providers.
+		Root level -  when we register it in this way then it return its instance only one time for every componenet so in this case
+							we do not need to register it saperatly for every component.
+							ex: -  In service.ts file we must add this code, outside the main class of that file.
+										@Injectable({
+												providedIn: 'root'
+										})
+										// This service is used to get the list of rooms from the server.
+										// It is a singleton service which means it will be created only once and will be used throughout the application.
+										// It is provided in the root module which means it will be available throughout the application.
+										// It is a good practice to provide the service in the root module so that it can be used throughout the application.
+										// Dependency injection in Angular is used to inject services into components in a structured way. When a service is provided at the root level, 
+											it is available throughout the app and managed as a singleton. If a service is not used anywhere in the app, 
+											Angular’s build optimization may remove it from the final bundle to reduce the application size.
+										
+		Component level - when we do it for every componenet saperalty then for each componenet one instance of that service class will be created.
+								   we do it when it is necessary to have different instance for each component.
+								   ex: - 
+								   @Component({
+											selector: 'app-employee',
+											standalone: false,
+											templateUrl: './employee.component.html',
+											styleUrl: './employee.component.scss',
+											providers: [RoomsService]
+											// providers: [RoomsService] is used to provide the service to the component
+											// If we want to provide the service to the whole application then we should provide it in app.module.ts
+											// If we want to provide the service to the component then we should provide it in the component
+											// If we want to provide the service to the module then we should provide it in the module
+									})
+		
+		Module level -  providers array in app.module.ts or any feature module(like if we are creating multiple module then we can add providers array saperalty in those modules).
+	
+	--Resolution Modifiers : There are four resolution modifiers that exists.
+										1. Self
+										2. SkipSelf
+										3. Optional
+										4. Host
+										
+										Self : - 
+													 //@Self() is a decorator which is used to get the instance of the service
+													 // It will not go to the parent component to get the instance of the service
+													 // It will only get the instance of the service which is provided in the component
+													 // when we are sure that the service is provided in the component and we don't want to go to the parent component to get the instance of the service
+													 // It is used to avoid the circular dependency
+													 
+													constructor(@Self() private roomService: RoomsService) { 
+
+													}
+													
+													
+										SkipSelf :-
+														 //@SkipSelf() is a decorator which is used to get the instance of the service
+														// It will go to the parent component to get the instance of the service
+														// It will not get the instance of the service which is provided in the component
+														// It is used to avoid the circular dependency
+														
+														   constructor(@SkipSelf() private roomService: RoomsService) {
+																  console.log(roomService);
+															}
+													
+										Optional :- 
+														//@Optional() is a decorator which is used to make the dependency optional
+														//It will not throw an error if the dependency is not provided
+														//It will return null if the dependency is not provided
+														//It is used to avoid the circular dependency
+														//LoggerService is a service which is used to log the messages
+														constructor(@Optional() private logger: LoggerService) { }
+										
+										Host :- 
+														The @Host() decorator in Angular is used to ensure that a dependency is resolved from the host component or directive, 
+														preventing Angular from searching further up the injector tree. 
+														This is useful when you want to enforce that a dependency is provided only by a specific host element.
+														constructor(@Host() private logger: LoggerService) { }
+			
+			Value Providers:-  Value providers in Angular allow you to provide a constant or predefined value as a dependency using the useValue property in the providers array. 
+										This is useful for injecting configuration settings, static data, or simple objects into components or services.
