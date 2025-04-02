@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList,
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-rooms',
@@ -26,6 +27,12 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   roomList: RoomList[] = [];
 
+  stream = new Observable(observer => {
+    observer.next('user1');
+    observer.next('user2');
+    observer.next('user3');
+    observer.complete();
+  });
   //Constructor should be used only for dependency injection(some services injection) and not for logic
   //Constructor should have any blocking code, it should be on ngOnInit
   constructor(private roomService: RoomsService) { }
@@ -58,6 +65,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   this should now go to constructor or any other lifecycle hook
   */
   ngOnInit() {
+    this.stream.subscribe(data => {console.log(data)});
     // console.log(this.headerComponent);
     // this.roomList = this.roomService.getRooms();
     this.roomService.getRooms().subscribe(rooms =>{
