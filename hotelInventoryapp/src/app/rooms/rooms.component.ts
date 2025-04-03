@@ -124,7 +124,11 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   // here are mutating the existing array which means we are changing the existing array, which is not a good practice
   //  this.roomList.push(newRoom);
   // here we are returning a new instance of roomList array with the new room added to it, we are not mutating the existing array.
-  this.roomList = [...this.roomList, newRoom];
+  // this.roomList = [...this.roomList, newRoom];
+  this.roomService.addRoom(newRoom).subscribe((data) => {
+    this.roomList = data;
+  }
+  );
  }
 
 }
