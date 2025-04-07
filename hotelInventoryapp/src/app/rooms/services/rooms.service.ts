@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../rooms';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 
 // This service is used to get the list of rooms from the server
 // It is a singleton service which means it will be created only once and will be used throughout the application
@@ -68,5 +68,13 @@ export class RoomsService  {
 
   deleteRoom(roomNumber: string) {
     return this.http.delete<RoomList[]>(`/api/rooms/${roomNumber}`);
+  }
+
+  getPhotos(){
+    const request = new HttpRequest('GET', 'https://jsonplaceholder.typicode.com/photos',{
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(request);
   }
 }

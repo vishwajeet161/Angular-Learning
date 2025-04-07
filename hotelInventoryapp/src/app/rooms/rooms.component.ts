@@ -3,6 +3,7 @@ import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
 import { Observable } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-rooms',
@@ -64,7 +65,31 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   If we want to load some data from API and we want to show it on the screen the we should wirte that part of code in ngOnInit, 
   this should now go to constructor or any other lifecycle hook
   */
+
+  totalBytes: number = 0;
   ngOnInit() {
+
+    this.roomService.getPhotos().subscribe((event) => {
+      switch (event.type) {
+        case HttpEventType.Sent:
+          console.log('Request has been made');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Response header has been received');
+          break;
+        case HttpEventType.DownloadProgress:
+          this.totalBytes = event.loaded;
+          console.log('Download progress has been received');
+          console.log(event);
+          break;
+        case HttpEventType.Response:
+          console.log('Response has been received');
+          console.log(event.body);
+          break;
+        default:
+          break;
+      } 
+    });
     this.stream.subscribe(data => {console.log(data)});
     // console.log(this.headerComponent);
     // this.roomList = this.roomService.getRooms();
