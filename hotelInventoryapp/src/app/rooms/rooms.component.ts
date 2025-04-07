@@ -122,6 +122,14 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
    );
   }
 
+  deleteRoom(){
+    const roomNumber = '927dece3-dbb3-478f-96ac-c19f029f896b';
+    this.roomService.deleteRoom(roomNumber).subscribe((data) => {
+      this.roomList = data;
+    }
+    );
+  }
+
   //selectRoom is a method which will be called when we click on the room
   //It will emit the selected room to the parent component
   select1Room(room: RoomList) {
