@@ -61,4 +61,8 @@ export class RoomsService  {
   addRoom(room: RoomList) {
     return this.http.post<RoomList[]>('/api/rooms', room);
   }
+
+  editRoom(room: RoomList) {
+    return this.http.put<RoomList[]>(`/api/rooms/${room.roomNumber}`, room);
+  }
 }

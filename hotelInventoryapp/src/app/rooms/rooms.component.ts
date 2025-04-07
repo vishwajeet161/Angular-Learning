@@ -98,10 +98,28 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   ngAfterViewChecked(): void {
     
   }
+
   toggle() {
     this.hideRooms = !this.hideRooms;
     this.title = "Rooms List";
     
+  }
+
+  editRoom(){
+    const newRoom: RoomList = {
+      roomNumber: '3',
+      roomType: 'Suite Room',
+      amenities: 'AC, TV, Wifi, Breakfast, Lunch, Dinner, Bar',
+      price: 20000,
+      photos: 'assets/suite.jpg',
+      checkinTime: new Date('2021-09-01'),
+      checkoutTime: new Date('2021-09-10'), 
+      rating: 4.811,   
+   };
+   this.roomService.editRoom(newRoom).subscribe((data) => {
+    this.roomList = data;
+   }
+   );
   }
 
   //selectRoom is a method which will be called when we click on the room
