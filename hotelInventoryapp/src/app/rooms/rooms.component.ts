@@ -28,6 +28,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   roomList: RoomList[] = [];
 
+  //stream is an observable which will emit the data
   stream = new Observable(observer => {
     observer.next('user1');
     observer.next('user2');
@@ -93,7 +94,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
     this.stream.subscribe(data => {console.log(data)});
     // console.log(this.headerComponent);
     // this.roomList = this.roomService.getRooms();
-    this.roomService.getRooms().subscribe(rooms =>{
+    this.roomService.getRooms$.subscribe(rooms =>{
       this.roomList = rooms;
     })
    

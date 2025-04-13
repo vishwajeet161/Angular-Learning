@@ -16,6 +16,9 @@ export class ContainerComponent implements OnInit, AfterContentInit {
   }
 
   ngAfterContentInit(): void {
+    console.log(this.employeeComponent);
+    //this.employeeComponent is used to get the instance of the child component
+    //employeeName is the property of the child component
     this.employeeComponent.employeeName = 'Employee Name';
    
   }

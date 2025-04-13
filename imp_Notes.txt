@@ -270,3 +270,15 @@ SimpleChanges is an interface which is used to get the previous value and curren
 				ngOnInit() {
 					this.stream.subscribe(data => {console.log(data)}); //this will print the data that are comming in the stream.
 				}
+				
+		-RxJs Operators :- 
+				1. ShareReplay
+				2. CatchError
+				3. Map operators
+				
+				Why do we need Operators here ?
+					- As we know Rxjs gives us the stream of data and that stream of data canot be modified after subscribing it, it can be modified before subscribing.
+					  So here operators comes really handy, if we want to modify it after subscribing.
+					  
+				1. ShareReplay:-
+					It is usefull when we are calling for same data from same api twice. ShareReplay acts as a chaching and store the same data which can be subscribe without calling the api again and again.
