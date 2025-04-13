@@ -54,7 +54,7 @@ export class RoomsService  {
     console.log(config.apiEndpoint);
     // This is used to get the api endpoint from the environment file
     console.log("Service is created");
-    this.getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(
+    this.getRooms$ = this.http.get<RoomList[]>('/api/room').pipe(
       shareReplay(1)
     )
   }

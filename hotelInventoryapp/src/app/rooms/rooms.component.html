@@ -24,13 +24,19 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
 <div>
     <button (click)="addRoom()">Add Room</button>
 </div>
-<div *ngIf="hideRooms">
+<div *ngIf="rooms$ | async as rooms">
+    <!--
+        The async pipe subscribes to the observable and returns the latest value it has emitted. 
+        It also marks the component to be checked for changes when a new value is emitted.
+        The async pipe automatically unsubscribes when the component is destroyed.
+        The async pipe is a built-in pipe in Angular that allows you to subscribe to an observable or a promise and return the latest value it has emitted.
+    -->
     <!--
         sending the roomList to the rooms-list component and listening to the selectedRoom event. 
         When the selectedRoom event is emitted, the selectRoom method is called.
 
     -->
-    <app-rooms-list [rooms]="rooms$ | async" (selectedRoom)="select1Room($event)" [title]="title"></app-rooms-list> 
+    <app-rooms-list [rooms]="rooms" (selectedRoom)="select1Room($event)" [title]="title"></app-rooms-list> 
     
 </div>
 <!-- {{ rooms?.availableRooms ?? 'No Rooms Available' }} -->
