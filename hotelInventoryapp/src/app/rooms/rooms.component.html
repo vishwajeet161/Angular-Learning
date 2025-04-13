@@ -24,6 +24,9 @@ So, it is better to use *ngIf directive to remove the element from the DOM-->
 <div>
     <button (click)="addRoom()">Add Room</button>
 </div>
+<h1>
+    Number of Rooms: {{roomsCount$ | async}}
+</h1>
 <div *ngIf="rooms$ | async as rooms">
     <!--
         The async pipe subscribes to the observable and returns the latest value it has emitted. 

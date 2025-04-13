@@ -2,7 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList,
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { catchError, Observable, of, Subject, Subscription } from 'rxjs';
+import { catchError, map, Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -28,7 +28,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   roomList: RoomList[] = [];
 
-  error$!: Subject<string>;
+  error$ = new Subject<string>;
   getError$ = this.error$.asObservable();
 
   //stream is an observable which will emit the data
@@ -41,6 +41,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   subscription!: Subscription;
   rooms$: Observable<RoomList[]>;
+  roomsCount$: any;
   //Constructor should be used only for dependency injection(some services injection) and not for logic
   //Constructor should have any blocking code, it should be on ngOnInit
   constructor(private roomService: RoomsService) {
@@ -50,10 +51,12 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
         this.error$.next(error.message);
         return of([]);
       })
+    );
+
+    this.roomsCount$ = this.roomService.getRooms$.pipe(
+      map((rooms)=> rooms.length),
     )
-
   }
-
 
   //ViewChildren is a decorator which is used to get the reference of the child component
   //HeaderComponent is the child component which we are getting the reference

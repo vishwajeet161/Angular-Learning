@@ -292,3 +292,20 @@ SimpleChanges is an interface which is used to get the previous value and curren
 					this.roomService.getRooms$.subscribe(rooms =>{
 						this.roomList = rooms;
 					})
+					
+				2. CatchError:-
+				     we can use this to hadle the errors.
+					 
+					 error$ = new Subject<string>;
+					getError$ = this.error$.asObservable();
+					 
+					 this.rooms$ = this.roomService.getRooms$.pipe(
+						catchError((error) => {
+							//console.log(error);
+							this.error$.next(error.message);
+							return of([]);
+						})
+					)
+					
+				3. Map Operators:-
+				
