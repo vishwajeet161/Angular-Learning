@@ -282,3 +282,13 @@ SimpleChanges is an interface which is used to get the previous value and curren
 					  
 				1. ShareReplay:-
 					It is usefull when we are calling for same data from same api twice. ShareReplay acts as a chaching and store the same data which can be subscribe without calling the api again and again.
+					
+				~service.ts file
+					this.getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(
+						shareReplay(1)
+					)
+					
+				~rooms.component.ts file
+					this.roomService.getRooms$.subscribe(rooms =>{
+						this.roomList = rooms;
+					})

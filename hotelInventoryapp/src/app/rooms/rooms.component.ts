@@ -2,7 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList,
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -35,9 +35,15 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
     observer.next('user3');
     observer.complete();
   });
+
+  subscription!: Subscription;
+  rooms$: Observable<RoomList[]>;
   //Constructor should be used only for dependency injection(some services injection) and not for logic
   //Constructor should have any blocking code, it should be on ngOnInit
-  constructor(private roomService: RoomsService) { }
+  constructor(private roomService: RoomsService) {
+  this.rooms$ = this.roomService.getRooms$;
+    
+   }
   
 
   //ViewChildren is a decorator which is used to get the reference of the child component
@@ -69,7 +75,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   totalBytes: number = 0;
   ngOnInit() {
-
+    
     this.roomService.getPhotos().subscribe((event) => {
       switch (event.type) {
         case HttpEventType.Sent:
@@ -94,9 +100,9 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
     this.stream.subscribe(data => {console.log(data)});
     // console.log(this.headerComponent);
     // this.roomList = this.roomService.getRooms();
-    this.roomService.getRooms$.subscribe(rooms =>{
-      this.roomList = rooms;
-    })
+    // this.roomService.getRooms$.subscribe(rooms =>{
+    //   this.roomList = rooms;
+    // })
    
   }
 

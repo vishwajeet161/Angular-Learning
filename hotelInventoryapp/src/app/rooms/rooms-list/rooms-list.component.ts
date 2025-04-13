@@ -15,7 +15,7 @@ export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   
   //we are making rooms as valid input property so that we can pass the data from parent component to child component
   //Input is a decorator which is used to pass the data from parent component to child component
-  @Input() rooms: RoomList[] = [];
+  @Input() rooms: RoomList[] | null = [];
   @Input() title: string = '';
   //Output is a decorator which is used to pass the data from child component to parent component
   //EventEmitter is a class which is used to emit the event
