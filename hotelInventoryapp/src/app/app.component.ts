@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ViewChild, ViewContainerRef, ElementRef, OnIn
 import { RoomsComponent } from './rooms/rooms.component';
 import { LoggerService } from './logger.service';
 import { localStorageToken } from './localstorage.token';
+import { InitService } from './init.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,9 @@ export class AppComponent implements AfterViewInit, OnInit {
   //It is used to avoid the circular dependency
   //LoggerService is a service which is used to log the messages
   constructor(@Optional() private logger: LoggerService,
-    @Inject(localStorageToken) private localStorage: Storage) {
+    @Inject(localStorageToken) private localStorage: Storage,
+  private initService: InitService) {
+    console.log(this.initService.config);
 
    }
   //@Host() is a decorator which is used to get the instance of the service
