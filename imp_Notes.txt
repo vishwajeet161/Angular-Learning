@@ -308,4 +308,14 @@ SimpleChanges is an interface which is used to get the previous value and curren
 					)
 					
 				3. Map Operators:-
-				
+					With the help of this we can modify the data befor subscribing.
+					
+					
+					 roomsCount$: any;
+					this.roomsCount$ = this.roomService.getRooms$.pipe(
+						map((rooms)=> rooms.length),
+					)
+		- Http Interceptors and APP_INITIALIZERS:-
+			-Allows us to intercept request
+			-We can change data and add headers
+			-APP_INITIALIZERS allows you to inject function as application startup.

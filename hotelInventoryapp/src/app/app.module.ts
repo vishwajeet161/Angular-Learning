@@ -10,7 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { requestInterceptor } from './request.interceptor';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG,
     },
+
+    provideHttpClient(withInterceptors([requestInterceptor])),
     provideHttpClient(withFetch()),
     // provideHttpClient() is used to provide the http client to the application
   ],

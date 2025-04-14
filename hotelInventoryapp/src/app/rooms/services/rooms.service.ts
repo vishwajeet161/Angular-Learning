@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../rooms';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable, shareReplay } from 'rxjs';
 
 // This service is used to get the list of rooms from the server
@@ -47,6 +47,7 @@ export class RoomsService  {
     // }
     ];
 
+  headers = new HttpHeaders({token: '1234567890'});
   getRooms$: Observable<RoomList[]>;
   
   constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig,
@@ -54,7 +55,7 @@ export class RoomsService  {
     console.log(config.apiEndpoint);
     // This is used to get the api endpoint from the environment file
     console.log("Service is created");
-    this.getRooms$ = this.http.get<RoomList[]>('/api/rooms').pipe(
+    this.getRooms$ = this.http.get<RoomList[]>('/api/rooms',{headers: this.headers}).pipe(
       shareReplay(1)
     )
   }
@@ -62,6 +63,7 @@ export class RoomsService  {
   
   getRooms(){
     // return this.roomList;
+    
     return this.http.get<RoomList[]>('/api/rooms')
   }
 
