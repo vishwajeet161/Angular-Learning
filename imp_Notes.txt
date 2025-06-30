@@ -88,7 +88,7 @@ SimpleChanges is an interface which is used to get the previous value and curren
   
   
   
---Using ng-template we can dynamically render a component in any component and modify their properties accordinglty.
+--Using ng-template we can dynamically render a component in any component and modify their properties accordingly.
   
   .html code - 
 					<div>
@@ -135,7 +135,7 @@ SimpleChanges is an interface which is used to get the previous value and curren
 		
 		
 		There are some of the code that we write can be reuseble and to reuse those we separate them in the form of services.
-		Services are those in which we write our businees logic.
+		Services are those in which we write our businees logic. 
 		To get  the data from apis we should use services.
 		We can do Component interaction using servies 
 				- Sharing data between multiple componenet or within app 
@@ -319,3 +319,30 @@ SimpleChanges is an interface which is used to get the previous value and curren
 			-Allows us to intercept request
 			-We can change data and add headers
 			-APP_INITIALIZERS allows you to inject function as application startup.
+			
+			
+
+Angular Routing:-
+	Agenda:-
+		Introduction
+		Setup Router
+		Using ActivatedRoute Service
+		Using Router Service
+		Feature Module and Routing
+		Nested Routing and Child Routes
+		Lazy Loading
+		Route Guards
+		
+		Introduction:-
+		Provides the functionality to add Routes.
+		Developers can configure all the routes at Front-End
+		Provides SPA functionality
+		Feature to add nested routes
+		
+		Setup Routes:-
+		Import RouterModule
+		forRoot method allows us to add multiple route config
+		Default route
+		Dynamic route
+		Wild card route
+		
